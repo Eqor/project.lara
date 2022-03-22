@@ -12,8 +12,6 @@ class BlogCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-
-
         $cName = 'Без категории';
         $categories[] = [
             'title' => $cName,
