@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Blog;
+namespace App\Http\Controllers\Blog\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\BlogPost;
+
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 
 
-class PostController extends Controller
+
+class CategoryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $items = BlogPost::all();
+
+        $paginator = BlogCategory::paginate(5);
 
 
-        return view('blog.posts.index', compact('items'));
+
+        return view('blog.admin.category.index',compact('paginator'));
     }
 
     /**
@@ -29,62 +32,43 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        dd(__METHOD__);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        dd(__METHOD__);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        dd(__METHOD__);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        dd(__METHOD__);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
 }
