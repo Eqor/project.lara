@@ -18,7 +18,7 @@ class CategoryController extends BaseController
     public function index()
     {
 
-        $paginator = BlogCategory::paginate(5);
+        $paginator = BlogCategory::paginate(15);
 
 
 
