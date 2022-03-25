@@ -20,8 +20,6 @@ class CategoryController extends BaseController
 
         $paginator = BlogCategory::paginate(15);
 
-
-
         return view('blog.admin.category.index',compact('paginator'));
     }
 
@@ -55,7 +53,10 @@ class CategoryController extends BaseController
 
     public function edit($id)
     {
-        dd(__METHOD__);
+        $item = BlogCategory::findOrFail($id);
+        $categoryList = BlogCategory::all();
+
+        return view('blog.admin.category.edit', compact('item', 'categoryList'));
     }
 
     /**
@@ -67,7 +68,7 @@ class CategoryController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        dd(__METHOD__);
+        dd(__METHOD__, $request->all(), $id);
     }
 
 
