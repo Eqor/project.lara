@@ -66,9 +66,28 @@ class CategoryController extends BaseController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id )
     {
-        dd(__METHOD__, $request->all(), $id);
+
+       $item = BlogCategory::find($id);
+        if (empty($item)) {
+            return back()
+                ->withErrors(['msg'=> "Запись id=[{ $id } не найдена"] )
+                ->withInput();
+        }
+
+        $data = $request->all();
+        $result = $item->fill($data)->save();
+
+        if ($result) {
+            return redirect()
+                ->route('blog.admin.categories.edit', $item->id)
+                ->with(['success'=> 'Успешно сохранено']);
+        }else {
+            return back()
+                ->withErrors(['msg'=> "ошибка сохранения"] )
+                ->withInput();
+        }
     }
 
 
