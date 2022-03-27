@@ -3,6 +3,8 @@ namespace App\Repositories;
 
 use App\Models\BlogCategory as Model;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class BlogCategoryRepository
@@ -29,12 +31,42 @@ class BlogCategoryRepository extends CoreRepository
     }
 
     /**
+     * @param int|null $perPage
+     * @return LengthAwarePaginator
+     */
+    public  function getAllWithPaginate( int $perPage = null)
+    {
+        $colums = ['id', 'title', 'parent_id'];
+
+        $result = $this->startConditions()
+            ->select($colums)
+            ->paginate($perPage);
+
+        return $result;
+
+    }
+
+    /**
      * Получите список категорий для вывода в выпадающем списке
      * @return Collection
      */
     public function getForComboBox()
     {
-        return $this->startConditions()->all();
+        //return $this->startConditions()->all();
+
+        $colums = implode(', ',[
+            'id',
+            'CONCAT (id, ". ", title) AS id_title',
+        ]);
+
+        $result = $this
+            ->startConditions()
+            ->selectRaw($colums)
+            ->toBase()
+            ->get();
+
+
+        return $result;
 
     }
 }
