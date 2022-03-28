@@ -11,7 +11,7 @@ class BlogPostObserver
     /**
      * Handle the blog post "creating" event.
      *
-     * @param  \App\Models\BlogPost  $blogPost
+     * @param BlogPost $blogPost
      * @return void
      */
     public function creating(BlogPost $blogPost)
@@ -22,7 +22,7 @@ class BlogPostObserver
     /**
      * Handle the blog post "updating" event.
      *
-     * @param  \App\Models\BlogPost  $blogPost
+     * @param BlogPost $blogPost
      * @return void
      */
     public function updating(BlogPost $blogPost)
@@ -42,14 +42,15 @@ class BlogPostObserver
      *  Если дата публикации не установлена и происходит установка флага - Опубликовано,
      * то устанавливаем текущую дату публикации
      * @param BlogPost $blogPost
-     * @return Carbon
+     * @return Carbon|string
+     *
      */
     protected function setPublishedAt(BlogPost $blogPost)
     {
-        if (empty($blogPost->published_at && $blogPost->is_published))
-        {
-          return  $blogPost->published_at = Carbon::now();
+        if (empty($blogPost->published_at && $blogPost->is_published)) {
+            return $blogPost->published_at = Carbon::now();
         }
+        return $blogPost->published_at;
 
     }
 
@@ -68,7 +69,7 @@ class BlogPostObserver
     /**
      * Handle the blog post "deleting" event.
      *
-     * @param  \App\Models\BlogPost  $blogPost
+     * @param BlogPost $blogPost
      * @return void
      */
     public function deleting(BlogPost $blogPost)
@@ -79,7 +80,7 @@ class BlogPostObserver
     /**
      * Handle the blog post "restoring" event.
      *
-     * @param  \App\Models\BlogPost  $blogPost
+     * @param BlogPost $blogPost
      * @return void
      */
     public function restoring(BlogPost $blogPost)
@@ -90,7 +91,7 @@ class BlogPostObserver
     /**
      * Handle the blog post "force deleting" event.
      *
-     * @param  \App\Models\BlogPost  $blogPost
+     * @param BlogPost $blogPost
      * @return void
      */
     public function forceDeleting(BlogPost $blogPost)
