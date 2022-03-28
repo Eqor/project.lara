@@ -6,9 +6,7 @@ namespace App\Http\Controllers\Blog\Admin;
 use App\Http\Requests\BlogPostUpdateRequest;
 use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class PostController extends BaseController
 {
