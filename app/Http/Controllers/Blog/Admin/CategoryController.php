@@ -3,19 +3,23 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 
-use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Http\Requests\BlogCategoryCreateRequest;
+use App\Http\Requests\BlogCategoryUpdateRequest;
 use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
+
 
 /**
  * Управление категориями блога
  * Class CategoryController
  * @package App\Http\Controllers\Blog\Admin
  */
-
-
 class CategoryController extends BaseController
 {
 
@@ -30,10 +34,10 @@ class CategoryController extends BaseController
 
         $this->blogCategoryRepository = app(BlogCategoryRepository::class);
     }
+
     /**
-     * Display a listing of the resource.
+     * @return Application|Factory|View
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -47,7 +51,7 @@ class CategoryController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return view|Application
      */
     public function create()
     {
@@ -55,14 +59,14 @@ class CategoryController extends BaseController
         $categoryList = $this->blogCategoryRepository->getForComboBox();
 
         return view('blog.admin.category.edit',
-            compact('item','categoryList'));
+            compact('item', 'categoryList'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(BlogCategoryCreateRequest $request)
     {
@@ -70,7 +74,6 @@ class CategoryController extends BaseController
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['title']);
         }
-
 
 
         $item = new BlogCategory($data);
@@ -93,13 +96,14 @@ class CategoryController extends BaseController
      *
      * @param int $id
      * @param BlogCategoryRepository $blogCategoryRepository
-     * @return \Illuminate\Http\Response
+     * @return Response|view
+     *
      */
 
     public function edit(int $id, BlogCategoryRepository $blogCategoryRepository)
     {
-       // $item = BlogCategory::findOrFail($id);
-       // $categoryList = BlogCategory::all();
+        // $item = BlogCategory::findOrFail($id);
+        // $categoryList = BlogCategory::all();
 
         $item = $blogCategoryRepository->getEdit($id);
         if (empty($item)) {
@@ -113,11 +117,11 @@ class CategoryController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function update(BlogCategoryUpdateRequest $request, $id)
+    public function update(BlogCategoryUpdateRequest $request, int $id)
     {
 
 
