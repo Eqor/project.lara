@@ -2,14 +2,40 @@
 
 namespace App\Models;
 
-use App\Models\User;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * Class BlogPost
+ * @package App\Models
+ *
+ * @property BlogCategory $category
+ * @property User         $user
+ * @property string       $title
+ * @property string       $slug
+ * @property string       $content_html
+ * @property string       $contene_raw
+ * @property string       $excerpt
+ * @property string       $published_at
+ * @property boolean      $is_published
+ */
 
 class BlogPost extends Model
 {
     use SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'slug',
+        'category_id',
+        'content_html',
+        'content_raw',
+        'excerpt',
+        'is_published',
+        'published_at',
+        'user_id'
+    ];
 
     /**
      * Катагория статьи.

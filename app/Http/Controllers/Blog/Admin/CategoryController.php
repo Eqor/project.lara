@@ -92,20 +92,20 @@ class CategoryController extends BaseController
      * Display the specified resource.
      *
      * @param int $id
-     * @param BlogCategoryRepository $categoryRepository
+     * @param BlogCategoryRepository $blogCategoryRepository
      * @return \Illuminate\Http\Response
      */
 
-    public function edit(int $id, BlogCategoryRepository $categoryRepository)
+    public function edit(int $id, BlogCategoryRepository $blogCategoryRepository)
     {
        // $item = BlogCategory::findOrFail($id);
        // $categoryList = BlogCategory::all();
 
-        $item = $categoryRepository->getEdit($id);
+        $item = $blogCategoryRepository->getEdit($id);
         if (empty($item)) {
             abort(404);
         }
-        $categoryList = $categoryRepository->getForComboBox();
+        $categoryList = $blogCategoryRepository->getForComboBox();
 
         return view('blog.admin.category.edit', compact('item', 'categoryList'));
     }
@@ -125,7 +125,7 @@ class CategoryController extends BaseController
 
         //dd($validatedData);
 
-        $item = BlogCategory::find($id);
+        $item = $this->blogCategoryRepository->getEdit($id);
         if (empty($item)) {
             return back()
                 ->withErrors(['msg' => "Запись id=[{ $id } не найдена"])
