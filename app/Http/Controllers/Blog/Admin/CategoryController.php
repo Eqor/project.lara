@@ -91,20 +91,35 @@ class CategoryController extends BaseController
      * Display the specified resource.
      *
      * @param int $id
-     * @param BlogCategoryRepository $blogCategoryRepository
      * @return Response|view
      *
      */
 
-    public function edit(int $id, BlogCategoryRepository $blogCategoryRepository)
+    public function edit(int $id)
     {
+        $item = $this->blogCategoryRepository->getEdit($id);
 
 
-        $item = $blogCategoryRepository->getEdit($id);
+//        $v['title_before'] = $item->title;
+//
+//        $item->title = 'DSADASdsf asFasfad  asdfas12';
+//
+//
+//        $v['title_after'] = $item->title;
+//        $v['getAttribute'] = $item->getAttribute('title');
+//        $v['attributesToArray'] = $item->attributesToArray();
+//        $v['attributes'] = $item->attributes['title'];
+//        $v['getAttributeValue'] = $item->getAttributeValue('title');
+//        $v['getMutatedAttributes'] = $item->getMutatedAttributes();
+//        $v['hasGetMutator'] = $item->hasGetMutator('title');
+//        $v['toArray'] = $item->toArray();
+//
+//        dd($v, $item);
+
         if (empty($item)) {
             abort(404);
         }
-        $categoryList = $blogCategoryRepository->getForComboBox();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
 
         return view('blog.admin.category.edit', compact('item', 'categoryList'));
     }
@@ -118,9 +133,6 @@ class CategoryController extends BaseController
      */
     public function update(BlogCategoryUpdateRequest $request, int $id)
     {
-
-
-
 
         $item = $this->blogCategoryRepository->getEdit($id);
         if (empty($item)) {

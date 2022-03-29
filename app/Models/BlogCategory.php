@@ -57,4 +57,23 @@ class BlogCategory extends Model
     {
         return $this->id === BlogCategory::ROOT;
     }
+
+//    /**
+//     * Пример аксеcсуара
+//     * @param $valueFromObject
+//     * @return array|false|string|string[]|null
+//     */
+//    public function getTitleAttribute($valueFromObject)
+//    {
+//        return mb_strtoupper($valueFromObject);
+//    }
+//
+//    /**
+//     * Пример мутатора
+//     * @param $incommingValue
+//     */
+//    public function setTitleAttribute($incommingValue)
+//    {
+//        $this->attributes['title'] = mb_strtolower($incommingValue);
+//    }
 }
