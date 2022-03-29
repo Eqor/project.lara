@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string       $title
  * @property string       $slug
  * @property string       $content_html
- * @property string       $contene_raw
+ * @property string       $content_raw
  * @property string       $excerpt
  * @property string       $published_at
  * @property boolean      $is_published
@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BlogPost extends Model
 {
     use SoftDeletes;
+
+    const UNKNOWN_USER = 1;
 
     protected $fillable = [
         'title',
@@ -34,7 +36,6 @@ class BlogPost extends Model
         'excerpt',
         'is_published',
         'published_at',
-        'user_id'
     ];
 
     /**

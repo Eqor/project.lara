@@ -24,10 +24,29 @@ class BlogPostCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|min:5|max:200',
-            'slug'          => 'max:200|unique:blog_categories,slug',
-            'description'   => 'string:max:500|min:3',
-            'parent_id'     => 'required|integer|exists:blog_categories,id'
+            'title'         => 'required|min:5|max:200|unique:blog_posts',
+            'slug'          => 'max:200',
+            'category_id'   => 'required|integer|exists:blog_categories,id',
+            'content_raw'   => 'required|string|min:5|max:10000',
+        ];
+    }
+
+    /**
+     * Точечный перевод статьи
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.requied' => 'Введите заголовок статьи',
+            'content_raw.min' => 'Минимальная длинна статьи [:min] символов',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'Заголовок'
         ];
     }
 }

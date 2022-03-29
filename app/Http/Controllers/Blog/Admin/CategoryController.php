@@ -10,7 +10,6 @@ use App\Repositories\BlogCategoryRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 
@@ -41,7 +40,7 @@ class CategoryController extends BaseController
     public function index()
     {
 
-        //$paginator = BlogCategory::paginate(15);
+
         $paginator = $this->blogCategoryRepository->getAllWithPaginate(5);
 
         return view('blog.admin.category.index', compact('paginator'));
@@ -70,10 +69,7 @@ class CategoryController extends BaseController
     public function store(BlogCategoryCreateRequest $request)
     {
         $data = $request->input();
-//        Ушло в Observer
-//        if (empty($data['slug'])) {
-//            $data['slug'] = Str::slug($data['title']);
-//        }
+
 
 
         $item = new BlogCategory($data);
@@ -102,8 +98,7 @@ class CategoryController extends BaseController
 
     public function edit(int $id, BlogCategoryRepository $blogCategoryRepository)
     {
-        // $item = BlogCategory::findOrFail($id);
-        // $categoryList = BlogCategory::all();
+
 
         $item = $blogCategoryRepository->getEdit($id);
         if (empty($item)) {
@@ -125,9 +120,7 @@ class CategoryController extends BaseController
     {
 
 
-        //$validatedData = $this->validate($request,$rules);
 
-        //dd($validatedData);
 
         $item = $this->blogCategoryRepository->getEdit($id);
         if (empty($item)) {
@@ -137,9 +130,6 @@ class CategoryController extends BaseController
         }
 
         $data = $request->all();
-//        if (empty($data['slug'])) {
-//            $data['slug'] = Str::slug($data['title']);
-//        }
         $result = $item->update($data);
 
         if ($result) {

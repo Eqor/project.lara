@@ -7,6 +7,9 @@
                 <div class="card">
                     <div class="card-body">
                         <table class="table table-hover">
+                            <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+                                <a class="btn btn-primary" href="{{route('blog.admin.posts.create')}}">Добавить</a>
+                            </nav>
                             <thead>
                             <tr>
                                 <th>#</th>

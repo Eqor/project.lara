@@ -9,16 +9,39 @@ use Illuminate\Support\Str;
 class BlogPostObserver
 {
     /**
-     * Handle the blog post "creating" event.
+     * Handle the blog before "creating" event.
      *
      * @param BlogPost $blogPost
      * @return void
      */
     public function creating(BlogPost $blogPost)
     {
-        //
+        $this->setPublishedAt($blogPost);
+        $this->setSlug($blogPost);
+        $this->setHtml($blogPost);
+        $this->setUser($blogPost);
     }
 
+    /**
+     * @param BlogPost $blogPost
+     */
+    protected function setHtml(BlogPost $blogPost)
+    {
+        if ($blogPost->isDirty('content_raw')) {
+            $blogPost->content_html = $blogPost->content_raw;
+        }
+
+    }
+
+    /**
+     * Если не указан user_id, то устанавливаем поле по умолчанию
+     * @param BlogPost $blogPost
+     */
+    protected function setUser(BlogPost $blogPost)
+    {
+        $blogPost->user_id = auth()->id() ?? BlogPost::UNKNOWN_USER;
+
+    }
     /**
      * Handle the blog post "updating" event.
      *
@@ -36,6 +59,7 @@ class BlogPostObserver
 //        dd($test);
         $this->setPublishedAt($blogPost);
         $this->setSlug($blogPost);
+
     }
 
     /**
