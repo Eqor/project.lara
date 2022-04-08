@@ -94,12 +94,21 @@ class BlogPostObserver
      * Handle the blog post "deleting" event.
      *
      * @param BlogPost $blogPost
-     * @return void
      */
     public function deleting(BlogPost $blogPost)
     {
-        //
+        //dd(__METHOD__, $blogPost);
+        //return false;
     }
+
+    /**
+     * @param BlogPost $blogPost
+     */
+    public function deleted(BlogPost $blogPost)
+    {
+        //dd(__METHOD__, $blogPost);
+    }
+
 
     /**
      * Handle the blog post "restoring" event.
